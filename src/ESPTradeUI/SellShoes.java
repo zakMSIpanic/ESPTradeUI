@@ -17,6 +17,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -28,6 +30,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 public class SellShoes extends JFrame {
 
@@ -59,7 +62,7 @@ public class SellShoes extends JFrame {
 	 */
 	public SellShoes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 300);
+		setBounds(100, 100, 490, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -164,15 +167,20 @@ public class SellShoes extends JFrame {
 		});
 		btnPostForSelling.setBounds(56, 208, 186, 36);
 		contentPane.add(btnPostForSelling);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBackground(Color.LIGHT_GRAY);
+		textArea.setBounds(264, 63, 176, 176);
+		contentPane.add(textArea);
 	}
 	
 	private interface SellShoesService 
 	{
 		@GET("http://localhost:9999/espTrade/sellShoes") Call<replyClass> sellShoes(@Query("name") String name,
-																					@Query("brand") String brand,
-																					@Query("color") String color,
-																					@Query("size") Integer size,
-																					@Query("price") Double price);
+				@Query("brand") String brand,
+				@Query("color") String color,
+				@Query("size") Integer size,
+				@Query("price") Double price);
 		
 	}
 	
