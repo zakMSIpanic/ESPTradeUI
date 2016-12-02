@@ -29,6 +29,7 @@ import java.awt.Window.Type;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class SignIn extends JFrame {
 
@@ -114,15 +115,22 @@ public class SignIn extends JFrame {
 				
 				Call<Reply> call;
 				
-					call = service.login(Long.parseLong(textField_1.getText()), textField.getText());
+					call = service.login(Long.parseLong(textField.getText()), textField_1.getText());
 					try {
 						Response<Reply> response = call.execute();						
 						
+						if (response.body().getMessage().equals("Login successful!")) {
+							LandingPage lp = new LandingPage(response.body().getAccount().toString(), textField.getText());
+							
+							lp.setVisible(true);
+						}
 //						Call<Reply> sendToChikka = service.sendChikka("SEND", "639177777428", "29290091", message_id, message_sent, "b2418ebf7f826869fc8626dcee056e7d0845ad2cb5b76e9de87f9d9038049262",  "860326f64656b1901624f3147b11c76ab43d508a52af3467775e1794b463e112");
 //						Response<Reply> chikka = sendToChikka.execute();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				
+				
 			}
 		});
 	}
@@ -135,16 +143,16 @@ public class SignIn extends JFrame {
 	}
 	
 	public class Reply {
-		Object title;
+		Object message;
 
-		public Object getTitle() {
-			return title;
+		public Object getMessage() {
+			return message;
 		}
 		
-		Object gross;
-
-		public Object getGross() {
-			return gross;
+		Object accountName;
+		
+		public Object getAccount() {
+			return accountName;
 		}
 
 	}
