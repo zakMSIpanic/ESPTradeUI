@@ -20,6 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 import java.awt.Color;
@@ -117,27 +118,26 @@ public class SellItem extends JFrame {
 						.addConverterFactory(GsonConverterFactory.create(gson))
 						.build();
 
-				SellItemsService service = retrofit.create(SellItemsService.class);
+				SellItemService service = retrofit.create(SellItemService.class);
 				
 				sendClass sender = new sendClass();
 				sender.setName(textField.getText());
 				sender.setPrice(Double.parseDouble(textField_4.getText()));
 				
-				Call<replyClass> call = service.sellItems(sender.getName(), sender.getPrice());
+				Call<replyClass> call = service.sellItem(sender.getName(), sender.getPrice());
 				
 				Response<replyClass> response;
 				
 				try {
 					response = call.execute();
-					System.out.println(1);
 					System.out.println(response.code());
 					String reply = response.body().getData().toString();
 					System.out.println(reply);
-					textArea.setText(reply);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
 			}
 		});
 		button.setBounds(56, 142, 186, 36);
@@ -145,10 +145,10 @@ public class SellItem extends JFrame {
 		
 	}
 	
-	private interface SellItemsService 
+	private interface SellItemService 
 	{
-		@GET("http://localhost:9999/espTrade/sellItem") Call<replyClass> sellItems(@Query("name") String name,
-																					@Query("price") Double price);
+		@POST("http://localhost:9999/espTrade/sellItem") Call<replyClass> sellItem(@Query("name") String name,
+																				  @Query("price") Double price);
 		
 	}
 	

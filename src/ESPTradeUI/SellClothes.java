@@ -13,12 +13,14 @@ import com.google.gson.GsonBuilder;
 import ESPTradeUI.SellShoes.replyClass;
 import ESPTradeUI.SellShoes.sendClass;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 import java.awt.Color;
@@ -161,17 +163,17 @@ public class SellClothes extends JFrame {
 				sender.setPrice(Double.parseDouble(textField_4.getText()));
 				sender.setSize(textField_3.getText());
 				
-				Call<replyClass> call = service.sellClothes(sender.getName(), sender.getBrand(), sender.getColor(), sender.getSize(), sender.getPrice());
+				Call<Reply> call = service.sellClothes(sender.getName(), sender.getBrand(), sender.getColor(), sender.getSize(), sender.getPrice());
 				
-				Response<replyClass> response;
+				Response<Reply> response;
 				
 				try {
 					response = call.execute();
 					System.out.println(1);
 					System.out.println(response.code());
-					String reply = response.body().getData().toString();
+					String reply = response.body().getMessage().toString();
 					System.out.println(reply);
-					textArea.setText("PLEASE");
+					textArea.setText(reply);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -184,7 +186,7 @@ public class SellClothes extends JFrame {
 	}
 	private interface SellClothesService 
 	{
-		@GET("http://localhost:9999/espTrade/sellClothes") Call<replyClass> sellClothes(@Query("name") String name,
+		@POST("http://localhost:9999/espTrade/sellClothes") Call<Reply> sellClothes(@Query("name") String name,
 																					@Query("brand") String brand,
 																					@Query("color") String color,
 																					@Query("size") String size,
@@ -192,16 +194,16 @@ public class SellClothes extends JFrame {
 		
 	}
 	
-	public class replyClass
+	public class Reply
 	{
-		Object data;
+		Object message;
 
-		public Object getData() {
-			return data;
+		public Object getMessage() {
+			return message;
 		}
 
-		public void setData(Object data) {
-			this.data = data;
+		public void setMessage(Object message) {
+			this.message = message;
 		}
 	}
 	
