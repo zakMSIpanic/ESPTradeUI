@@ -12,6 +12,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LandingPage extends JFrame {
 
@@ -84,6 +86,33 @@ public class LandingPage extends JFrame {
 		btnSellSomething.setBounds(277, 313, 117, 29);
 		contentPane.add(btnSellSomething);
 		
+		
+		btnClothes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FilterClothes newWindow = new FilterClothes();
+				
+				newWindow.setVisible(true);
+			}
+		});
+		
+		btnShoes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FilterShoes newWindow = new FilterShoes();
+
+				newWindow.setVisible(true);
+			}
+		});
+
+		btnThings.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FilterItem newWindow = new FilterItem();
+
+				newWindow.setVisible(true);
+			}
+		});
 	}
 
 	public LandingPage() {
