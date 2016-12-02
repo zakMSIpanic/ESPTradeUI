@@ -149,10 +149,6 @@ public class SignUp extends JFrame {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				
-				
-				
-				
 			}
 		});
 	}
