@@ -12,6 +12,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LandingPage extends JFrame {
 
@@ -36,7 +38,8 @@ public class LandingPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LandingPage() {
+	
+	public LandingPage(String name, String id) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 300, 400, 370);
 		contentPane = new JPanel();
@@ -45,12 +48,12 @@ public class LandingPage extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblAccoun = new JLabel("Account Name");
+		JLabel lblAccoun = new JLabel(name);
 		lblAccoun.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		lblAccoun.setBounds(33, 9, 128, 23);
 		contentPane.add(lblAccoun);
 		
-		JLabel lblNewLabel = new JLabel("Account ID Number");
+		JLabel lblNewLabel = new JLabel(id);
 		lblNewLabel.setBounds(266, 6, 128, 16);
 		contentPane.add(lblNewLabel);
 		
@@ -83,5 +86,36 @@ public class LandingPage extends JFrame {
 		btnSellSomething.setBounds(277, 313, 117, 29);
 		contentPane.add(btnSellSomething);
 		
+		
+		btnClothes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FilterClothes newWindow = new FilterClothes();
+				
+				newWindow.setVisible(true);
+			}
+		});
+		
+		btnShoes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FilterShoes newWindow = new FilterShoes();
+
+				newWindow.setVisible(true);
+			}
+		});
+
+		btnThings.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FilterItem newWindow = new FilterItem();
+
+				newWindow.setVisible(true);
+			}
+		});
+	}
+
+	public LandingPage() {
+		// TODO Auto-generated constructor stub
 	}
 }

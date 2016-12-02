@@ -1,6 +1,18 @@
-
-bin/ESPTradeUI/SignIn$2.class
-
-bin/ESPTradeUI/SignIn$JDICTService.class
-
 *.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+# *.jar
+# *.war
+# *.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+bin/db.properties
+
+config/db.properties
+
+.DS_Store
+
