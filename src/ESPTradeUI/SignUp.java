@@ -6,6 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import ESPTradeUI.SignIn.Reply;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -92,5 +98,26 @@ public class SignUp extends JFrame {
 		JButton btnCreateAccount = new JButton("Create Account");
 		btnCreateAccount.setBounds(44, 210, 208, 43);
 		contentPane.add(btnCreateAccount);
+	}
+	
+	private interface JDICTService
+	{
+		@GET("http://localhost:9999/espTrade/signup") Call<Reply> signup(@Query("idNumber") Long idNumber,
+																			@Query("password") String password);
+		
+	}
+	
+	public class Reply {
+		Object message;
+
+		public Object getMessage() {
+			return message;
+		}
+		
+		Object accountName;
+		
+		public Object getAccount() {
+			return accountName;
+		}
 	}
 }

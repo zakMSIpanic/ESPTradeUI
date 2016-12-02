@@ -113,6 +113,15 @@ public class LandingPage extends JFrame {
 				newWindow.setVisible(true);
 			}
 		});
+		
+		btnSellSomething.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				SellClothes newWindow = new SellClothes();
+
+				newWindow.setVisible(true);
+			}
+		});
 	}
 
 	public LandingPage() {
