@@ -151,6 +151,7 @@ public class SellShoes extends JFrame {
 				
 				try {
 					response = call.execute();
+					System.out.println(1);
 					System.out.println(response.code());
 					String reply = response.body().getData().toString();
 					System.out.println(reply);
@@ -167,11 +168,11 @@ public class SellShoes extends JFrame {
 	
 	private interface SellShoesService 
 	{
-		@GET("http://localhost:9999/espTrade/sendMovies") Call<replyClass> sellShoes(@Query("name") String name,
-				@Query("brand") String brand,
-				@Query("color") String color,
-				@Query("size") Integer size,
-				@Query("price") Double price);
+		@GET("http://localhost:9999/espTrade/sellShoes") Call<replyClass> sellShoes(@Query("name") String name,
+																					@Query("brand") String brand,
+																					@Query("color") String color,
+																					@Query("size") Integer size,
+																					@Query("price") Double price);
 		
 	}
 	
