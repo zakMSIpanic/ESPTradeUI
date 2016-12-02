@@ -6,29 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
-
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.util.UUID;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -113,86 +92,5 @@ public class SignUp extends JFrame {
 		JButton btnCreateAccount = new JButton("Create Account");
 		btnCreateAccount.setBounds(44, 210, 208, 43);
 		contentPane.add(btnCreateAccount);
-		
-		btnCreateAccount.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				Gson gson = new GsonBuilder().create();
-				HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-				interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-				
-//				java.net.Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.admu.edu.ph", 3128));
-				
-				
-				OkHttpClient client = new OkHttpClient.Builder()
-						.addInterceptor(interceptor)
-						.build();
-				
-				Retrofit retrofit = new Retrofit.Builder()
-						.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
-						.client(client)
-						.addConverterFactory(GsonConverterFactory.create(gson))
-						.build();
-				
-				JDICTService service = retrofit.create(JDICTService.class);	
-				
-				
-				Call<Reply> call;
-				
-					call = service.signup(Long.parseLong(textField_1.getText()), textField.getText(), textField_3.getText(), textField_2.getText());
-					try {
-						Response<Reply> response = call.execute();						
-						
-//						Call<Reply> sendToChikka = service.sendChikka("SEND", "639177777428", "29290091", message_id, message_sent, "b2418ebf7f826869fc8626dcee056e7d0845ad2cb5b76e9de87f9d9038049262",  "860326f64656b1901624f3147b11c76ab43d508a52af3467775e1794b463e112");
-//						Response<Reply> chikka = sendToChikka.execute();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-			}
-		});
-	}
-	private interface JDICTService
-	{
-		@GET("http://localhost:9999/espTrade/signup") Call<Reply> signup(@Query("idNumber") Long idNumber,
-																			@Query("name") String name,
-																			@Query("password") String password,
-																			@Query("sex") String sex);
-		
-	}
-	
-	public class Reply {
-		Object title;
-
-		public Object getTitle() {
-			return title;
-		}
-		
-		Object gross;
-
-		public Object getGross() {
-			return gross;
-		}
-
-	}
-	
-	public class Account {
-		
-	}
-	public class Post {
-		String movie;
-		String action;
-		public String getMovie() {
-			return movie;
-		}
-		public void setMovie(String movie) {
-			this.movie = movie;
-		}
-		public String getAction() {
-			return action;
-		}
-		public void setAction(String action) {
-			this.action = action;
-		}
 	}
 }

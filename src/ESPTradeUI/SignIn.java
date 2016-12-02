@@ -1,14 +1,12 @@
 package ESPTradeUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.border.MatteBorder;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,17 +17,27 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import java.awt.GridLayout;
+import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JTable;
-import java.awt.Window.Type;
+import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.HashMap;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.util.UUID;
+
 
 public class SignIn extends JFrame {
 
@@ -154,7 +162,5 @@ public class SignIn extends JFrame {
 		public Object getAccount() {
 			return accountName;
 		}
-
 	}
-	
 }

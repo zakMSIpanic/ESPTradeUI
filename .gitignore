@@ -14,4 +14,5 @@ bin/db.properties
 
 config/db.properties
 
-*.class
+.DS_Store
+
