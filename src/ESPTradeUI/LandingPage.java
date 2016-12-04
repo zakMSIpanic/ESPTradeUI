@@ -117,9 +117,14 @@ public class LandingPage extends JFrame {
 		btnSellSomething.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				SellClothes newWindow = new SellClothes();
-
-				newWindow.setVisible(true);
+				SellClothes newsell = new SellClothes();
+				newsell.setVisible(true);
+				
+				SellItem newitem = new SellItem();
+				newitem.setVisible(true);
+				
+				SellShoes newshoes = new SellShoes();
+				newshoes.setVisible(true);
 			}
 		});
 	}
