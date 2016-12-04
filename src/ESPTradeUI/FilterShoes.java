@@ -25,7 +25,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import ESPTradeUI.FilterClothes.Clothes;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -147,18 +146,166 @@ public class FilterShoes extends JFrame {
 		panel_1.add(table);
 		
 		JButton button = new JButton("Find Brand");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Gson gson = new GsonBuilder().create();
+				HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+				interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+				OkHttpClient client = new OkHttpClient.Builder()
+						.addInterceptor(interceptor)
+						.build();
+
+				Retrofit retrofit = new Retrofit.Builder()
+						.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
+						.client(client)
+						.addConverterFactory(GsonConverterFactory.create(gson))
+						.build();
+
+				JDICTService service = retrofit.create(JDICTService.class);	
+
+
+				Call<Reply> call;
+				
+				call = service.findShoesbyBrand(textField.getText());
+				
+				try {
+					Response<Reply> response = call.execute();						
+					
+//					System.out.println(response.body().getMessage());
+					model.setRowCount(0);
+					for (Shoes c : response.body().getMessage()) {
+						model.addRow(new Object[]{c.getId(), c.getName(), c.getBrand(),c.getColor(),c.getSize(), c.getPrice()});
+					}
+					//				Call<Reply> sendToChikka = service.sendChikka("SEND", "639177777428", "29290091", message_id, message_sent, "b2418ebf7f826869fc8626dcee056e7d0845ad2cb5b76e9de87f9d9038049262",  "860326f64656b1901624f3147b11c76ab43d508a52af3467775e1794b463e112");
+					//				Response<Reply> chikka = sendToChikka.execute();
+				} catch (IOException f) {
+					f.printStackTrace();
+				}	
+			}
+		});
 		button.setBounds(229, 63, 153, 29);
 		panel_1.add(button);
 		
 		JButton button_1 = new JButton("Find Size");
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Gson gson = new GsonBuilder().create();
+				HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+				interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+				OkHttpClient client = new OkHttpClient.Builder()
+						.addInterceptor(interceptor)
+						.build();
+
+				Retrofit retrofit = new Retrofit.Builder()
+						.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
+						.client(client)
+						.addConverterFactory(GsonConverterFactory.create(gson))
+						.build();
+
+				JDICTService service = retrofit.create(JDICTService.class);	
+
+
+				Call<Reply> call;
+				
+				call = service.findShoesbySize(Integer.parseInt(textField_1.getText()));
+				
+				try {
+					Response<Reply> response = call.execute();						
+					
+
+					model.setRowCount(0);
+					for (Shoes c : response.body().getMessage()) {
+						model.addRow(new Object[]{c.getId(), c.getName(), c.getBrand(),c.getColor(),c.getSize(), c.getPrice()});
+					}
+				} catch (IOException f) {
+					f.printStackTrace();
+				}
+			}
+		});
 		button_1.setBounds(229, 101, 153, 29);
 		panel_1.add(button_1);
 		
 		JButton button_2 = new JButton("Find Color");
+		button_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Gson gson = new GsonBuilder().create();
+				HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+				interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+				OkHttpClient client = new OkHttpClient.Builder()
+						.addInterceptor(interceptor)
+						.build();
+
+				Retrofit retrofit = new Retrofit.Builder()
+						.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
+						.client(client)
+						.addConverterFactory(GsonConverterFactory.create(gson))
+						.build();
+
+				JDICTService service = retrofit.create(JDICTService.class);	
+
+
+				Call<Reply> call;
+				
+				call = service.findShoesbyColor(textField_2.getText());
+				
+				try {
+					Response<Reply> response = call.execute();						
+					
+
+					model.setRowCount(0);
+					for (Shoes c : response.body().getMessage()) {
+						model.addRow(new Object[]{c.getId(), c.getName(), c.getBrand(),c.getColor(),c.getSize(), c.getPrice()});
+					}
+				} catch (IOException f) {
+					f.printStackTrace();
+				}
+			}
+			
+		});
 		button_2.setBounds(229, 140, 153, 29);
 		panel_1.add(button_2);
 		
 		JButton button_3 = new JButton("Find Price");
+		button_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Gson gson = new GsonBuilder().create();
+				HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+				interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+				OkHttpClient client = new OkHttpClient.Builder()
+						.addInterceptor(interceptor)
+						.build();
+
+				Retrofit retrofit = new Retrofit.Builder()
+						.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
+						.client(client)
+						.addConverterFactory(GsonConverterFactory.create(gson))
+						.build();
+
+				JDICTService service = retrofit.create(JDICTService.class);	
+
+
+				Call<Reply> call;
+				
+				call = service.findShoesbyPrice(Double.parseDouble(textField_3.getText()));
+				
+				try {
+					Response<Reply> response = call.execute();						
+					
+
+					model.setRowCount(0);
+					for (Shoes c : response.body().getMessage()) {
+						model.addRow(new Object[]{c.getId(), c.getName(), c.getBrand(),c.getColor(),c.getSize(), c.getPrice()});
+					}
+				} catch (IOException f) {
+					f.printStackTrace();
+				}
+			
+			}
+		});
 		button_3.setBounds(229, 179, 153, 29);
 		panel_1.add(button_3);
 		
@@ -193,11 +340,6 @@ public class FilterShoes extends JFrame {
 			for (Shoes c : response.body().getMessage()) {
 				model.addRow(new Object[]{c.getId(), c.getName(), c.getBrand(),c.getColor(),c.getSize(), c.getPrice()});
 			}
-			
-			 
-			
-			
-			
 			//				Call<Reply> sendToChikka = service.sendChikka("SEND", "639177777428", "29290091", message_id, message_sent, "b2418ebf7f826869fc8626dcee056e7d0845ad2cb5b76e9de87f9d9038049262",  "860326f64656b1901624f3147b11c76ab43d508a52af3467775e1794b463e112");
 			//				Response<Reply> chikka = sendToChikka.execute();
 		} catch (IOException e) {
@@ -296,6 +438,13 @@ public class FilterShoes extends JFrame {
 	{
 		@GET("http://localhost:9999/espTrade/listShoes") Call<Reply> listShoes();	
 		
-		@GET("http://localhost:9999/espTrade/findClothesbyBrand") Call<Reply> findClothesbyBrand(@Query("brand") String brand);	
+		@GET("http://localhost:9999/espTrade/findShoesbyBrand") Call<Reply> findShoesbyBrand(@Query("brand") String brand);	
+		
+		@GET("http://localhost:9999/espTrade/findShoesbySize") Call<Reply> findShoesbySize(@Query("size") Integer brand);
+		
+		@GET("http://localhost:9999/espTrade/findShoesbyColor") Call<Reply> findShoesbyColor(@Query("color") String color);
+		
+		@GET("http://localhost:9999/espTrade/findShoesbyPrice") Call<Reply> findShoesbyPrice(@Query("price") Double price);
+		
 	}
 }

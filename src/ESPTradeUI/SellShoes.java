@@ -146,8 +146,8 @@ public class SellShoes extends JFrame {
 				sender.setName(textField.getText());
 				sender.setBrand(textField_1.getText());
 				sender.setColor(textField_2.getText());
-				sender.setPrice(Double.parseDouble(textField_3.getText()));
-				sender.setSize(Integer.parseInt(textField_4.getText()));
+				sender.setPrice(Double.parseDouble(textField_4.getText()));
+				sender.setSize(Integer.parseInt(textField_3.getText()));
 				
 				Call<replyClass> call = service.sellShoes(sender.getName(), sender.getBrand(), sender.getColor(), sender.getSize(), sender.getPrice());
 				
