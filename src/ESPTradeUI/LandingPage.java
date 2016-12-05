@@ -118,12 +118,15 @@ public class LandingPage extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				SellClothes newsell = new SellClothes();
+				newsell.setSellerID(Long.parseLong(id));
 				newsell.setVisible(true);
 				
 				SellItem newitem = new SellItem();
+				newitem.setSellerID(Long.parseLong(id));
 				newitem.setVisible(true);
 				
 				SellShoes newshoes = new SellShoes();
+				newshoes.setSellerID(Long.parseLong(id));
 				newshoes.setVisible(true);
 			}
 		});

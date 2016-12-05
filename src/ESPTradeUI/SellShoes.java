@@ -41,6 +41,17 @@ public class SellShoes extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private Long sellerID;
+	
+	
+
+	public Long getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(Long sellerID) {
+		this.sellerID = sellerID;
+	}
 
 	/**
 	 * Launch the application.
@@ -149,7 +160,7 @@ public class SellShoes extends JFrame {
 				sender.setPrice(Double.parseDouble(textField_4.getText()));
 				sender.setSize(Integer.parseInt(textField_3.getText()));
 				
-				Call<replyClass> call = service.sellShoes(sender.getName(), sender.getBrand(), sender.getColor(), sender.getSize(), sender.getPrice());
+				Call<replyClass> call = service.sellShoes(sender.getName(), sender.getBrand(), sender.getColor(), sender.getSize(), sender.getPrice(), sellerID);
 				
 				Response<replyClass> response;
 				
@@ -180,7 +191,8 @@ public class SellShoes extends JFrame {
 																					@Query("brand") String brand,
 																					@Query("color") String color,
 																					@Query("size") Integer size,
-																					@Query("price") Double price);
+																					@Query("price") Double price,
+																					  @Query("sellerID") Long id);
 		
 	}
 	

@@ -11,15 +11,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-import ESPTradeUI.SellShoes.replyClass;
-import ESPTradeUI.SellShoes.sendClass;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -38,6 +35,17 @@ public class SellItem extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_4;
+	private Long sellerID;
+	
+	
+
+	public Long getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(Long sellerID) {
+		this.sellerID = sellerID;
+	}
 
 	/**
 	 * Launch the application.
@@ -107,36 +115,37 @@ public class SellItem extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-				interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-				OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+			HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+			interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+			OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+			
+			Gson gson = new GsonBuilder().create();
+			Retrofit retrofit = new Retrofit.Builder()
+					.client(client)
+					.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
+					.addConverterFactory(GsonConverterFactory.create(gson))
+					.build();
+			
+			SellItemService service = retrofit.create(SellItemService.class);
+			
+			sendClass sender = new sendClass();
+			sender.setName(textField.getText());
+			sender.setPrice(Double.parseDouble(textField_4.getText()));
+			
+			Call<replyClass> call = service.sellItem(sender.getName(), sender.getPrice(), sellerID);
+			
+			Response<replyClass> response;
+			
+			try {
+				response = call.execute();
+				System.out.println(response.code());
+				String reply = response.body().getData().toString();
+				System.out.println(reply);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				
-				Gson gson = new GsonBuilder().create();
-				Retrofit retrofit = new Retrofit.Builder()
-						.client(client)
-						.baseUrl("http://localhost:9999/") // a legit base url is needed regardless
-						.addConverterFactory(GsonConverterFactory.create(gson))
-						.build();
-
-				SellItemService service = retrofit.create(SellItemService.class);
-				
-				sendClass sender = new sendClass();
-				sender.setName(textField.getText());
-				sender.setPrice(Double.parseDouble(textField_4.getText()));
-				
-				Call<replyClass> call = service.sellItem(sender.getName(), sender.getPrice());
-				
-				Response<replyClass> response;
-				
-				try {
-					response = call.execute();
-					System.out.println(response.code());
-					String reply = response.body().getData().toString();
-					System.out.println(reply);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				
 			}
 		});
@@ -148,7 +157,8 @@ public class SellItem extends JFrame {
 	private interface SellItemService 
 	{
 		@POST("http://localhost:9999/espTrade/sellItem") Call<replyClass> sellItem(@Query("name") String name,
-																				  @Query("price") Double price);
+																				  @Query("price") Double price,
+																				  @Query("sellerID") Long id);
 		
 	}
 	

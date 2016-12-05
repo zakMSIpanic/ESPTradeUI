@@ -39,6 +39,7 @@ public class BuyItem extends JFrame {
 	private JTextField textField_1;
 	private String itemType;
 
+
 	/**
 	 * Launch the application.
 	 */

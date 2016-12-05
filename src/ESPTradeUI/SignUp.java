@@ -29,6 +29,8 @@ import java.io.IOException;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SignUp extends JFrame {
 
@@ -37,6 +39,7 @@ public class SignUp extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -72,44 +75,57 @@ public class SignUp extends JFrame {
 		contentPane.add(lblSignUp);
 		
 		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(44, 55, 79, 16);
+		lblName.setBounds(44, 44, 79, 16);
 		contentPane.add(lblName);
 		
 		JLabel lblIdNumber = new JLabel("ID Number:");
-		lblIdNumber.setBounds(44, 93, 79, 16);
+		lblIdNumber.setBounds(44, 82, 79, 16);
 		contentPane.add(lblIdNumber);
 		
 		JLabel lblGender = new JLabel("Gender:");
-		lblGender.setBounds(44, 130, 79, 16);
+		lblGender.setBounds(44, 119, 79, 16);
 		contentPane.add(lblGender);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(44, 169, 79, 16);
+		lblPassword.setBounds(44, 152, 79, 16);
 		contentPane.add(lblPassword);
 		
 		textField = new JTextField();
-		textField.setBounds(122, 50, 130, 26);
+		textField.setBounds(122, 39, 130, 26);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(122, 88, 130, 26);
+		textField_1.setBounds(122, 77, 130, 26);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(122, 125, 130, 26);
+		textField_2.setBounds(122, 114, 130, 26);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(122, 164, 130, 26);
+		textField_3.setBounds(122, 147, 130, 26);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 		
 		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setBounds(44, 210, 208, 43);
+		btnCreateAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCreateAccount.setBounds(44, 218, 208, 43);
 		contentPane.add(btnCreateAccount);
+		
+		JLabel lblCellNo = new JLabel("Cell No.:");
+		lblCellNo.setBounds(44, 185, 61, 16);
+		contentPane.add(lblCellNo);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(122, 180, 130, 26);
+		contentPane.add(textField_4);
+		textField_4.setColumns(10);
 		
 		btnCreateAccount.addMouseListener(new MouseAdapter() {
 			@Override
@@ -137,7 +153,7 @@ public class SignUp extends JFrame {
 				
 				Call<Reply> call;
 				
-					call = service.signup(Long.parseLong(textField_1.getText()), textField.getText(), textField_3.getText(), textField_2.getText());
+					call = service.signup(Long.parseLong(textField_1.getText()), textField.getText(), textField_3.getText(), textField_2.getText(), textField_4.getText());
 					try {
 						Response<Reply> response = call.execute();						
 						
@@ -162,7 +178,8 @@ public class SignUp extends JFrame {
 		@GET("http://localhost:9999/espTrade/signup") Call<Reply> signup(@Query("idNumber") Long idNumber,
 																		@Query("name") String name,
 																		@Query("password") String password,
-																		@Query("sex") String sex);
+																		@Query("sex") String sex,
+																		@Query("cellphone") String cellphone);
 	}
 	
 	public class Reply {

@@ -375,9 +375,8 @@ public class FilterShoes extends JFrame {
 		private String name;
 		private Double price;
 		private Boolean sold;
-		private Account seller;
 		private String color;
-		private String size;
+		private Integer size;
 		private String brand;
 		
 		public String getColor() {
@@ -388,7 +387,7 @@ public class FilterShoes extends JFrame {
 			return brand;
 		}
 		
-		public String getSize() {
+		public Integer getSize() {
 			return size;
 		}
 		public Long getId() {
@@ -414,12 +413,6 @@ public class FilterShoes extends JFrame {
 		}
 		public void setSold(Boolean sold) {
 			this.sold = sold;
-		}
-		public Account getSeller() {
-			return seller;
-		}
-		public void setSeller(Account seller) {
-			this.seller = seller;
 		}
 	}
 	

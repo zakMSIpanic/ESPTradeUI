@@ -313,6 +313,15 @@ public class FilterClothes extends JFrame {
 		btnNewButton_4.setBounds(53, 211, 329, 45);
 		contentPane.add(btnNewButton_4);
 		
+		btnNewButton_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				BuyItem buy = new BuyItem();
+				buy.setItemType("clothes");
+				buy.setVisible(true);
+			}
+		});
+		
 		Gson gson = new GsonBuilder().create();
 		HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 		interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -366,7 +375,6 @@ public class FilterClothes extends JFrame {
 		private String name;
 		private Double price;
 		private Boolean sold;
-		private Account seller;
 		private String color;
 		private String size;
 		private String brand;
@@ -405,12 +413,6 @@ public class FilterClothes extends JFrame {
 		}
 		public void setSold(Boolean sold) {
 			this.sold = sold;
-		}
-		public Account getSeller() {
-			return seller;
-		}
-		public void setSeller(Account seller) {
-			this.seller = seller;
 		}
 	}
 	
